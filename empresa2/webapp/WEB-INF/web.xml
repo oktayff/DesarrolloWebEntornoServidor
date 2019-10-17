@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>MostrarEmpleados</servlet-name>
+  	<display-name>MostrarEmpleados</display-name>
+  	<description></description>
+  	<servlet-class>controller.MostrarEmpleados</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>MostrarSalario</servlet-name>
+  	<display-name>MostrarSalario</display-name>
+  	<description></description>
+  	<servlet-class>controller.MostrarSalario</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ModificarEmpleado</servlet-name>
+  	<display-name>ModificarEmpleado</display-name>
+  	<description></description>
+  	<servlet-class>/ModificarEmpleado</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ModificarBaseDatos</servlet-name>
+  	<display-name>ModificarBaseDatos</display-name>
+  	<description></description>
+  	<servlet-class>/ModificarBaseDatos</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MostrarEmpleados</servlet-name>
+  	<url-pattern>/MostrarEmpleados</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>MostrarSalario</servlet-name>
+  	<url-pattern>/MostrarSalario</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ModificarEmpleado</servlet-name>
+  	<url-pattern>/ModificarEmpleado</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ModificarBaseDatos</servlet-name>
+  	<url-pattern>/ModificarBaseDatos</url-pattern>
+  </servlet-mapping>
+</web-app>

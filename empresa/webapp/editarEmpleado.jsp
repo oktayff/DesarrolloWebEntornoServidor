@@ -10,9 +10,7 @@
 </head>
 <body>
 	
-	
-	<!-- <c:set var="emp" value="${empleado}"></c:set> -->
-	<form action="ModificarBD" method="post">
+	<form action="Controller" method="post">
 		NOMBRE: <input type="text" name="nombre" value="${empleado.nombre}"> <br>
 		DNI: <input type="text" name="dni" value="${empleado.dni}"> <br>
 		SEXO: <input type="text" name="sexo" value="${empleado.sexo}"> <br>

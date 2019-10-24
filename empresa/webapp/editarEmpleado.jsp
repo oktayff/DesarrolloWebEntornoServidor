@@ -11,12 +11,13 @@
 <body>
 	
 	<form action="Controller" method="post">
+		<input type="hidden" name="accion" value="modificarempleado">
 		NOMBRE: <input type="text" name="nombre" value="${empleado.nombre}"> <br>
 		DNI: <input type="text" name="dni" value="${empleado.dni}"> <br>
 		SEXO: <input type="text" name="sexo" value="${empleado.sexo}"> <br>
 		CATEGORIA: <input type="number" name="categoria" value="${empleado.categoria}"> <br>
 		ANYOS: <input type="number" name="anyos" value="${empleado.anyos}"> <br>	
-		<input class="boton" type="submit" value="Aplicar">
+		<input class="boton" type="submit" value="Enviar">
 	</form>
 	<br>
 	

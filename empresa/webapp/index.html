@@ -6,20 +6,23 @@
 <body>
 <h2 align="center">Nominas Empleados</h2>
 
-	<form action="MostrarEmpleados" method="post">
-		<input class="boton" type="submit" value="Ver empleados">
+	<form action="Controller" method="post">
+		<input type="hidden" name="accion" value="mostrarempleados">
+		<input class="boton" type="submit" value="Ver Empleados" name="empleados">
 	</form>
 	
 	<br>
-	<form action="SalarioEmpleado" method="post">
-		Ver salario: <input type="text" id="dni" name="dni" placeholder="Introduzca el DNI">
-		<input class="boton" type="submit" value="Enviar">
+	<form action="Controller" method="post">
+		<input type="hidden" name="accion" value="versalario">
+		Ver salario: <input type="text" name="dni" placeholder="Introduzca el DNI">
+		<input class="boton" type="submit">
 	</form>
 	
 	<br>
-	<form action="ModificarEmpleado" method="post">
-		Modificar empleado: <input type="text" id="dni" name="dni" placeholder="Introduzca el DNI">
-		<input class="boton" type="submit" value="Enviar">
+	<form action="Controller" method="post">
+		<input type="hidden" name="accion" value="buscardni">
+		Buscar Empleado: <input type="text" name="dni" placeholder="Introduzca el DNI">
+		<input class="boton" type="submit">
 	</form>
 
 </body>

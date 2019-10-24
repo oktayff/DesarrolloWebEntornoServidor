@@ -16,7 +16,7 @@ import model.Empleado;
 /**
  * Servlet implementation class Controller
  */
-@WebServlet("/Controller")
+
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -40,23 +40,33 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 		
-		String action = request.getParameter("action");
+		String action = request.getParameter("accion");
 		
-		if(action.equalsIgnoreCase("Ver Empleados")) {
+		switch(action) {
+		
+			case "mostrarempleados":
+				
+				this.mostrarEmpleados(request, response);
 			
-			this.mostrarEmpleados(request, response);
+			break;
 			
-		}else if(action.equalsIgnoreCase("Ver Salario")) {
+			case "versalario":
+				
+				this.salarioEmpleado(request, response);
+				
+			break;
 			
-			this.salarioEmpleado(request, response);
+			case "buscardni":
+				
+				this.encontrarEmpleadoDNI(request, response);
+				
+			break;
 			
-		}else if(action.equalsIgnoreCase("Obtener Empleado")) {
+			case "modificarempleado":
+				
+				this.modificarEmpleadoBD(request, response);
 			
-			this.encontrarEmpleadoDNI(request, response);
-			
-		}else {
-			
-			this.modificarEmpleadoBD(request, response);
+			break;
 		}
 		
 	}

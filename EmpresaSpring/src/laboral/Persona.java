@@ -1,4 +1,4 @@
-package model;
+package laboral;
 
 public class Persona {
 	public String nombre;

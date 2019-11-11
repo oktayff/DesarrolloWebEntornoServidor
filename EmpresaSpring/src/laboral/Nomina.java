@@ -1,4 +1,4 @@
-package model;
+package laboral;
 
 public class Nomina {
 	

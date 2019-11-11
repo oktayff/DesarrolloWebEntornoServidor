@@ -1,4 +1,4 @@
-package model;
+package laboral;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,9 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.DatosNoCorrectosException;
-import model.Empleado;
-import model.Nomina;
+import laboral.DatosNoCorrectosException;
+import laboral.Empleado;
+import laboral.Nomina;
 
 
 public class BBDD {

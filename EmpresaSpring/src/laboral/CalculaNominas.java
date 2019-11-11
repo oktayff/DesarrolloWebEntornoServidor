@@ -1,13 +1,13 @@
-package model;
+package laboral;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import model.BBDD;
-import model.Ficheros;
-import model.DatosNoCorrectosException;
+import laboral.BBDD;
+import laboral.Ficheros;
+import laboral.DatosNoCorrectosException;
 
 public class CalculaNominas {
 

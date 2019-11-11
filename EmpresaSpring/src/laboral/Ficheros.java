@@ -1,4 +1,4 @@
-package model;
+package laboral;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import model.DatosNoCorrectosException;
-import model.Empleado;
+import laboral.DatosNoCorrectosException;
+import laboral.Empleado;
 
 public class Ficheros {
 	

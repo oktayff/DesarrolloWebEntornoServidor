@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Pelicula;
+
 public class BBDD {
 	
 	Connection conn;
@@ -16,24 +18,26 @@ public class BBDD {
 	
 	public BBDD() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cine","oktay","oktay");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cine","root","root");
 	}
 	
 	//Método que nos devolverá las peliculas dirigidas por un director
-	public List<String> peliculasDirector(String director) throws ClassNotFoundException, SQLException {
-		
-		List<String> listaPeliculas = new ArrayList<String>();
-		
+	public List<Pelicula> peliculasDirector(String director) throws SQLException {
+	
 		stmt = conn.createStatement();
 		
-		String sql = "SELECT titulo FROM pelicula WHERE director = '"+director+"'";
+		List<Pelicula> lista = new ArrayList<Pelicula>();
+		
+		String sql = "SELECT * FROM pelicula WHERE director = '"+director+"'";
 		
 		rs = stmt.executeQuery(sql);
 		
 		while(rs.next()) {
-			listaPeliculas.add(rs.getString(0));
+			lista.add(new Pelicula(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4)));
 		}
-		return listaPeliculas;
+		
+		return lista;
+			
 	}
 	
 

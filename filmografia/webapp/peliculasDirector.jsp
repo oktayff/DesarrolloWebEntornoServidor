@@ -4,23 +4,31 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Lista de peliculas por director</title>
-
+<title>Peliculas por director</title>
 </head>
 <body>
-
-	<h1>Formulario de directores</h1>
 	
-	<form action="Controller" method="POST">
-		<input type="hidden" name="accion" value="peliculasdirector">
-		NOMBRE: <input type="text" name="director" placeholder="Introduzca el nombre">
-		<input class="boton" type="submit" value="Consultar"><br>
-	</form>
+	<h1 align="center">Peliculas</h1><br>
+	
+	<table border="1px solid black">
+	<tr>
+		<th>TITULO</th>
+	</tr>
+	
+	<c:forEach items="${lista}" var="pelicula">
+	  
+		<tr>
+	    	<td>${pelicula.titulo}</td>
+		</tr>
+		
+	</c:forEach>
+	
+	</table>
 	
 	<a href="index.html">
 		<button>Volver al menu principal</button>

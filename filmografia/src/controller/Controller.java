@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,18 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.BBDD;
+import model.Pelicula;
 
 /**
  * Servlet implementation class PeliculaServlet
  */
 @WebServlet("/PeliculaServlet")
-public class PeliculaServlet extends HttpServlet {
+public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PeliculaServlet() {
+    public Controller() {
         super();
     }
 
@@ -39,15 +41,38 @@ public class PeliculaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 		
+		String action = request.getParameter("accion");
+		
+		switch(action) {
+		
+			case "peliculasdirector":
+				
+				this.obtenerpeliculasDirector(request, response);
+				
+			break;
+			
+		}
+	}
+	
+	protected void obtenerpeliculasDirector(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		BBDD bbdd;
 		
 		try {
+			
 			bbdd = new BBDD();
 			
 			RequestDispatcher rd;
 			
+			String director = request.getParameter("director");
 			
-		}catch(ClassNotFoundException | SQLException e) {
+			List<Pelicula> peliculas = bbdd.peliculasDirector(director);
+			request.setAttribute("lista", peliculas);
+			
+			rd = request.getRequestDispatcher("/peliculasDirector.jsp");
+			rd.forward(request, response);
+				
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}

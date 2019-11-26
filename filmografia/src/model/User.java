@@ -1,17 +1,17 @@
 package model;
 
-public class Admin {
+public class User {
 	
 	private String username;
 	private String password;
 	
-	public Admin (String username, String password) {
+	public User (String username, String password) {
 		
 		this.username = username;
 		this.password = password;
 	}
 	
-	public Admin () {
+	public User () {
 		super();
 	}
 
@@ -33,6 +33,7 @@ public class Admin {
 
 	@Override
 	public String toString() {
-		return "Admin [username=" + username + ", password=" + password + "]";
+		return "User [username=" + username + ", password=" + password + "]";
 	}
+
 }

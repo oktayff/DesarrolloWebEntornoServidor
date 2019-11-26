@@ -9,16 +9,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Formulario de aministradores</title>
+<title>Login</title>
 
 </head>
 <body>
 
-	<h1 align="center">Formulario de login para administradores</h1><br>
+	<h1 align="center">Formulario de login</h1><br>
 	
-	<form action="PeliculasController" method="POST">
+	<form action="Controller" method="POST">
+		<input type="hidden" name="accion" value="loginuser">
 		LOGIN: <input type="text" name="username" value=""><br>
-		PASSWORD: <input type="text" name="password" value="">
+		PASSWORD: <input type="password" name="password" value="">
 		<input class="boton" type="submit" value="Log In">
 	</form>
 	

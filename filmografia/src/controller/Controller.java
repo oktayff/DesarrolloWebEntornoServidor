@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.BBDD;
 import model.Pelicula;
+import model.User;
 
 /**
  * Servlet implementation class PeliculaServlet
@@ -51,6 +52,12 @@ public class Controller extends HttpServlet {
 				
 			break;
 			
+			case "loginuser":
+				
+				this.loginUser(request, response);
+				
+			break;
+			
 		}
 	}
 	
@@ -67,6 +74,7 @@ public class Controller extends HttpServlet {
 			String director = request.getParameter("director");
 			
 			List<Pelicula> peliculas = bbdd.peliculasDirector(director);
+			
 			request.setAttribute("lista", peliculas);
 			
 			rd = request.getRequestDispatcher("/peliculasDirector.jsp");
@@ -75,6 +83,40 @@ public class Controller extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	protected void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+BBDD bbdd;
+		
+		try {
+			
+			bbdd = new BBDD();
+			
+			RequestDispatcher rd;
+			
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			int numero = bbdd.usuariosBD(username, password);
+			
+			if(numero > 0) {
+				
+				//response.sendRedirect("successfulLogin.jsp");
+				
+				rd = request.getRequestDispatcher("/successfulLogin.jsp");
+				
+			}else {
+				
+				rd = request.getRequestDispatcher("/loginError.jsp");
+				//response.sendRedirect("loginError.jsp");
+			}
+			
+			rd.forward(request, response);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

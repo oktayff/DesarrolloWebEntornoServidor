@@ -29,10 +29,32 @@
 	</c:forEach>
 	
 	</table>
+	<br>
 	
-	<a href="index.html">
+	<table border="1px solid black">
+	<tr>
+		<th>NOMBRE DIRECTOR</th>
+	</tr>
+	
+ 	<c:forEach items="${lista}" var="pelicula">
+	  
+		<tr>
+	    	<td>${pelicula.director}</td>
+		</tr>
+		
+	</c:forEach>
+	
+	</table>
+	
+	<br><a href="formDirectores.jsp">
+		<button>Volver a consultar</button>
+	</a>
+	
+	<br><a href="index.html">
 		<button>Volver al menu principal</button>
 	</a>
+	
+	
 	
 </body>
 </html>

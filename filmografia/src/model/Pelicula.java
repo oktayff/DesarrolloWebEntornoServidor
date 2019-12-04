@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class Pelicula {
 	
-	private String id;
-	private String director;
-	private String titulo;
-	private Date fecha;
+	public String id;
+	public String director;
+	public String titulo;
+	public String fecha;
 	
-	public Pelicula(String id, String director, String titulo, Date fecha) {
+	public Pelicula(String id, String director, String titulo, String fecha) {
 		
-		this.id = id;
+		this.setId(id);
 		this.director = director;
 		this.titulo = titulo;
 		this.fecha = fecha;
@@ -22,11 +22,11 @@ public class Pelicula {
 	}
 
 	public String getIdentificador() {
-		return id;
+		return getId();
 	}
 
 	public void setIdentificador(String id) {
-		this.id = id;
+		this.setId(id);
 	}
 
 	public String getDirector() {
@@ -45,18 +45,26 @@ public class Pelicula {
 		this.titulo = titulo;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
 	@Override
 	public String toString() {
-		return "Pelicula [id=" + id + ", director=" + director + ", titulo=" + titulo + ", fecha="
+		return "Pelicula [id=" + getId() + ", director=" + director + ", titulo=" + titulo + ", fecha="
 				+ fecha + "]";
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

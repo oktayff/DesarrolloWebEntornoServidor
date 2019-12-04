@@ -1,7 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -18,50 +21,277 @@ import model.User;
 /**
  * Servlet implementation class PeliculaServlet
  */
-@WebServlet("/PeliculaServlet")
+//@WebServlet("/PeliculaServlet")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Controller() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Controller() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
-		
+
 		String action = request.getParameter("accion");
-		
-		switch(action) {
-		
-			case "peliculasdirector":
-				
-				this.obtenerpeliculasDirector(request, response);
-				
+
+		switch (action) {
+
+		case "peliculasdirector":
+
+			this.obtenerpeliculasDirector(request, response);
+
+			break;
+
+		case "loginuser":
+
+			this.loginUser(request, response);
+
+			break;
+
+		case "insertarpeli":
+
+			this.crearPelicula(request, response);
+
 			break;
 			
-			case "loginuser":
-				
-				this.loginUser(request, response);
-				
+		case "eliminarpeli":
+			
+			this.eliminarPeli(request, response);
+		
 			break;
 			
+		case "buscarpeli":
+			
+			this.encontrarPelicula(request, response);
+			
+			break;
+			
+		case "modificarpeli":
+			
+			this.modificarPelicula(request, response);
+			
+			break;
+
+		case "nuevoadmin":
+			
+			this.crearAdmin(request, response);
+
+			break;
+
+		}
+	}
+
+//	protected void listarPelis(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		
+//		BBDD bbdd;
+//		
+//		try {
+//			
+//			bbdd = new BBDD();
+//			
+//			RequestDispatcher rd;
+//			
+//			String id = request.getParameter("id");
+//			String director = request.getParameter("director");
+//			String titulo = request.getParameter("titulo");
+//			
+//			List<Pelicula> pelis = bbdd.peliculas();
+//			
+//			if(pelis.isEmpty() != true) {
+//				
+//				rd = request.getRequestDispatcher("/mantPeliculas.jsp");
+//			}else {
+//				
+//				rd = request.getRequestDispatcher("/loginError.jsp");
+//			}
+//			
+//			rd.forward(request, response);
+//			
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
+
+//	protected void usuariosLogueados(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		
+//		BBDD bbdd;
+//		
+//		try {
+//			
+//			bbdd = new BBDD();
+//			
+//			RequestDispatcher rd;
+//			
+//			String username = request.getParameter("username");
+//			String password = request.getParameter("password");
+//			
+//			List<User> usuarios = bbdd.getUsernamePassword(username, password);
+//			
+//			if(usuarios.isEmpty() != true) {
+//				
+//				rd = request.getRequestDispatcher("/successfulLogin.jsp");
+//			}else {
+//				
+//				rd = request.getRequestDispatcher("/loginError.jsp");
+//			}
+//			
+//			rd.forward(request, response);
+//			
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
+
+	// Metodo para obtener las peliculas de un director - FUNCIONA
+	protected void obtenerpeliculasDirector(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		BBDD bbdd;
+
+		try {
+
+			bbdd = new BBDD();
+
+			RequestDispatcher rd;
+
+			String director = request.getParameter("director");
+
+			List<Pelicula> peliculas = bbdd.peliculasDirector(director);
+
+			if (peliculas.isEmpty() == true) {
+
+				rd = request.getRequestDispatcher("/directorInexistente.jsp");
+
+			} else {
+
+				rd = request.getRequestDispatcher("/peliculasDirector.jsp");
+				request.setAttribute("lista", peliculas);
+			}
+
+			rd.forward(request, response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// Metodo para el logueo de un admin - FUNCIONA
+	protected void loginUser(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		BBDD bbdd;
+
+		try {
+
+			bbdd = new BBDD();
+
+			RequestDispatcher rd;
+
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+
+			int numero = bbdd.usuariosBD(username, password);
+
+			if (numero > 0) {
+
+				rd = request.getRequestDispatcher("/successfulLogin.jsp");
+
+			} else {
+
+				rd = request.getRequestDispatcher("/loginError.jsp");
+
+			}
+
+			rd.forward(request, response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	// Metodo para insertar una nueva pelicula en la BBDD - FUNCIONA
+	protected void crearPelicula(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		BBDD bbdd;
+
+		try {
+
+			bbdd = new BBDD();
+
+			String id = request.getParameter("id");
+			String director = request.getParameter("director");
+			String titulo = request.getParameter("titulo");
+			String fecha = request.getParameter("fecha");
+
+			bbdd.crearPelicula(id, director, titulo, fecha);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
-	protected void obtenerpeliculasDirector(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// Metodo para eliminar una pelicula - FUNCIONA
+	protected void eliminarPeli(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		BBDD bbdd;
+
+		try {
+
+			bbdd = new BBDD();
+
+			String titulo = request.getParameter("titulo");
+			
+			bbdd.eliminarPelicula(titulo);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Metodo para insertar un admin nuevo en la BBDD - FUNCIONA
+	protected void crearAdmin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		BBDD bbdd;
+
+		try {
+
+			bbdd = new BBDD();
+
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+
+			bbdd.registroAdmin(username, password);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Metodo para encontrar una pelicula por su titulo - FUNCIONA
+	protected void encontrarPelicula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		BBDD bbdd;
 		
@@ -71,22 +301,21 @@ public class Controller extends HttpServlet {
 			
 			RequestDispatcher rd;
 			
-			String director = request.getParameter("director");
+			Pelicula pe = bbdd.sacaPelicula(request.getParameter("id"));
 			
-			List<Pelicula> peliculas = bbdd.peliculasDirector(director);
+			request.setAttribute("pelicula", pe);
 			
-			request.setAttribute("lista", peliculas);
-			
-			rd = request.getRequestDispatcher("/peliculasDirector.jsp");
+			rd = request.getRequestDispatcher("/formModificarPelicula.jsp");
 			rd.forward(request, response);
-				
+			
 		}catch(Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 	
-	protected void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-BBDD bbdd;
+	protected void modificarPelicula(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		BBDD bbdd;
 		
 		try {
 			
@@ -94,29 +323,39 @@ BBDD bbdd;
 			
 			RequestDispatcher rd;
 			
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
+			String id = request.getParameter("id");
+			String director = request.getParameter("director");
+			String titulo = request.getParameter("titulo");
 			
-			int numero = bbdd.usuariosBD(username, password);
+			Pelicula antesdeactualizar = bbdd.sacaPelicula(id);
 			
-			if(numero > 0) {
-				
-				//response.sendRedirect("successfulLogin.jsp");
-				
-				rd = request.getRequestDispatcher("/successfulLogin.jsp");
-				
+			String fecha = request.getParameter("fecha");
+			
+			
+			Pelicula pe = new Pelicula(id, director, titulo, fecha);
+			
+			bbdd.reemplazarPelicula(pe);
+			
+			Boolean resolucion = null;
+			
+			System.out.println("entrando");
+			
+			if(antesdeactualizar.director.equals(pe.director) && antesdeactualizar.titulo == pe.titulo && antesdeactualizar.fecha == pe.fecha) {
+				resolucion = false;
 			}else {
-				
-				rd = request.getRequestDispatcher("/loginError.jsp");
-				//response.sendRedirect("loginError.jsp");
+				resolucion = true;
 			}
 			
+			System.out.println("fuera");
+			
+			request.setAttribute("resolucion", resolucion);
+			
+			rd = request.getRequestDispatcher("/modificacion.jsp");
 			rd.forward(request, response);
 			
-		}catch(Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-
+	
 }

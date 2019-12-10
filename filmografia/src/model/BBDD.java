@@ -27,7 +27,7 @@ public class BBDD {
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cine", "root", "root");
 	}
 
-	// M√©todo que nos devolver√° las peliculas dirigidas por un director
+	// MÈtodo que nos devolver· las peliculas dirigidas por un director
 	public List<Pelicula> peliculasDirector(String director) throws SQLException {
 		
 		stmt = conn.createStatement();
@@ -39,7 +39,7 @@ public class BBDD {
 		rs1 = stmt.executeQuery(sql);
 
 		while (rs1.next()) {
-			lista.add(new Pelicula(rs1.getString(1), rs1.getString(2), rs1.getString(3), rs1.getString(4)));
+			lista.add(new Pelicula(rs1.getString(1), rs1.getString(2), rs1.getString(3)));
 		
 		}
 
@@ -94,51 +94,21 @@ public class BBDD {
 		rs1 = stmt.executeQuery(sql);
 		
 		while(rs1.next()) {
-			pelis.add(new Pelicula(rs1.getString(1), rs1.getString(2), rs1.getString(3), rs1.getString(4)));
+			pelis.add(new Pelicula(rs1.getString(1), rs1.getString(2), rs1.getString(3)));
 		}
 		
 		return pelis;	
 	}
 	
 	//Crear pelicula
-	public void crearPelicula(String id, String director, String titulo, String fecha) throws SQLException {
+	public void crearPelicula(String director, String titulo, String fecha) throws SQLException {
 		
 		stmt = conn.createStatement();
 		
-		String sql = "INSERT INTO pelicula (id, director, titulo, fecha) VALUES ('"+id+"','"+director+"','"+titulo+"','"+fecha+"')";
+		String sql = "INSERT INTO pelicula (director, titulo, fecha) VALUES ('"+director+"','"+titulo+"','"+fecha+"')";
 		
 		rs2 = stmt.executeUpdate(sql);
 	}
-	
-	//Modificar director
-//	public void modificarDirectorPelicula(String id, String director) throws SQLException {
-//		
-//		stmt = conn.createStatement();
-//		
-//		String sql = "UPDATE pelicula SET director = '" + director+"' WHERE id = '" +id+"')";
-//		
-//		rs2 = stmt.executeUpdate(sql);
-//	}
-	
-	//Modificar titulo
-//	public void modificarTituloPelicula(String id, String titulo) throws SQLException {
-//		
-//		stmt = conn.createStatement();
-//		
-//		String sql = "UPDATE pelicula SET titulo = '" +titulo+"' WHERE id = '" +id+"')";
-//		
-//		rs2 = stmt.executeUpdate(sql);
-//	}
-	
-	//Modificar fecha
-//	public void modificarFechaPelicula(String id, Date fecha) throws SQLException {
-//		
-//		stmt = conn.createStatement();
-//		
-//		String sql = "UPDATE pelicula SET fecha = '" +fecha+"' WHERE id = '" +id+"')";
-//		
-//		rs2 = stmt.executeUpdate(sql);
-//	}
 	
 	//Eliminar una pelicula
 	public void eliminarPelicula(String titulo) throws SQLException {
@@ -161,16 +131,15 @@ public class BBDD {
 	}
 	
 	//Metodo que obtiene una pelicula en concreto mediante el id
-	public Pelicula sacaPelicula(String id) throws SQLException {
+	public Pelicula sacaPelicula(String titulo) throws SQLException {
 		Pelicula pelicula = null;
-		String consulta = "select * from pelicula where id like '"+id+"'";
+		String consulta = "select * from pelicula where titulo like '"+titulo+"'";
 		stmt = conn.createStatement();
 		rs1 = stmt.executeQuery(consulta);
 		
 		while(rs1.next()) {
-			pelicula = new Pelicula(rs1.getString("id"), 
-					rs1.getString("director"),
-					rs1.getString("titulo"), 
+			pelicula = new Pelicula (rs1.getString("director"),
+					rs1.getString("titulo"),
 					rs1.getString("fecha"));
 
 		}
@@ -184,7 +153,7 @@ public class BBDD {
 		
 		stmt = conn.createStatement();
 		
-		String sql = "UPDATE pelicula SET director = '"+peli.director+"', titulo = '"+peli.titulo+"', fecha = '"+peli.fecha+"' WHERE id = '"+peli.id+"';";
+		String sql = "UPDATE pelicula SET director = '"+peli.director+"', fecha = '"+peli.fecha+"' WHERE titulo = '"+peli.titulo+"';";
 		
 		rs2 = stmt.executeUpdate(sql);
 	}

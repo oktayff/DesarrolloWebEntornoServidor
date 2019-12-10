@@ -11,7 +11,6 @@
 	
 	<form action="Controller" method="POST">
 		<input type="hidden" name="accion" value="insertarpeli">
-		ID: <input type="text" name="id" value=""><br>
 		DIRECTOR: <input type="text" name="director" value=""><br>
 		TITULO: <input type="text" name="titulo" value=""><br>
 		FECHA: <input type="text" name="fecha" value=""><br>

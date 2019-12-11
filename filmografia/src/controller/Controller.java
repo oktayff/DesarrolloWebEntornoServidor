@@ -98,69 +98,6 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-//	protected void listarPelis(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//		BBDD bbdd;
-//		
-//		try {
-//			
-//			bbdd = new BBDD();
-//			
-//			RequestDispatcher rd;
-//			
-//			String id = request.getParameter("id");
-//			String director = request.getParameter("director");
-//			String titulo = request.getParameter("titulo");
-//			
-//			List<Pelicula> pelis = bbdd.peliculas();
-//			
-//			if(pelis.isEmpty() != true) {
-//				
-//				rd = request.getRequestDispatcher("/mantPeliculas.jsp");
-//			}else {
-//				
-//				rd = request.getRequestDispatcher("/loginError.jsp");
-//			}
-//			
-//			rd.forward(request, response);
-//			
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
-
-//	protected void usuariosLogueados(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//		BBDD bbdd;
-//		
-//		try {
-//			
-//			bbdd = new BBDD();
-//			
-//			RequestDispatcher rd;
-//			
-//			String username = request.getParameter("username");
-//			String password = request.getParameter("password");
-//			
-//			List<User> usuarios = bbdd.getUsernamePassword(username, password);
-//			
-//			if(usuarios.isEmpty() != true) {
-//				
-//				rd = request.getRequestDispatcher("/successfulLogin.jsp");
-//			}else {
-//				
-//				rd = request.getRequestDispatcher("/loginError.jsp");
-//			}
-//			
-//			rd.forward(request, response);
-//			
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
-
 	// Metodo para obtener las peliculas de un director - FUNCIONA
 	protected void obtenerpeliculasDirector(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -239,12 +176,11 @@ public class Controller extends HttpServlet {
 
 			bbdd = new BBDD();
 
-			String id = request.getParameter("id");
 			String director = request.getParameter("director");
 			String titulo = request.getParameter("titulo");
 			String fecha = request.getParameter("fecha");
 
-			bbdd.crearPelicula(id, director, titulo, fecha);
+			bbdd.crearPelicula(director, titulo, fecha);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -332,7 +268,7 @@ public class Controller extends HttpServlet {
 			String fecha = request.getParameter("fecha");
 			
 			
-			Pelicula pe = new Pelicula(id, director, titulo, fecha);
+			Pelicula pe = new Pelicula(director, titulo, fecha);
 			
 			bbdd.reemplazarPelicula(pe);
 			

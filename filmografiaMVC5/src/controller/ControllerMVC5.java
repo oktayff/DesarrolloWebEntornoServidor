@@ -21,7 +21,6 @@ public class ControllerMVC5 {
 
 	BBDD bbdd;
 	String next = null;
-	RequestDispatcher rd;
 
 	@RequestMapping("/info")
 	public ModelAndView info() {

@@ -3,27 +3,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <title>Peliculas por director</title>
 </head>
 <body>
 	
 	<h1 align="center">Peliculas</h1><br>
 	
-	<table border="1px solid black">
+	<table border="1px solid black" class="table table-striped table-dark">
 	<tr>
 		<th>TITULO</th>
+		<th>DIRECTOR</th>
 	</tr>
 	
 	<c:forEach items="${lista}" var="pelicula">
 	  
 		<tr>
 	    	<td>${pelicula.titulo}</td>
+	    	<td>${pelicula.director}</td>
 		</tr>
 		
 	</c:forEach>
@@ -31,30 +34,13 @@
 	</table>
 	<br>
 	
-	<table border="1px solid black">
-	<tr>
-		<th>NOMBRE DIRECTOR</th>
-	</tr>
-	
- 	<c:forEach items="${lista}" var="pelicula">
-	  
-		<tr>
-	    	<td>${pelicula.director}</td>
-		</tr>
-		
-	</c:forEach>
-	
-	</table>
-	
 	<br><a href="formDirectores.html">
-		<button>Volver a consultar</button>
-	</a>
+		<button class="btn btn-warning">Volver a consultar</button>
+	</a><br>
 	
 	<br><a href="index.html">
-		<button>Volver al menu principal</button>
+		<button class="btn btn-warning">Volver al menu principal</button>
 	</a>
-	
-	
 	
 </body>
 </html>

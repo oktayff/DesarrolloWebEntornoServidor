@@ -1,4 +1,4 @@
-package model;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,6 +21,24 @@ public class BBDD {
 	public BBDD() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cine", "root", "root");
+	}
+	
+	public List<Pelicula> obtenerPeliculas() throws SQLException {
+		
+		stmt = conn.createStatement();
+		
+		List<Pelicula> pelis = new ArrayList<Pelicula>();
+		
+		String sql = "SELECT * FROM pelicula";
+		
+		rs1 = stmt.executeQuery(sql);
+		
+		while(rs1.next()) {
+			pelis.add(new Pelicula(rs1.getString(1), rs1.getString(2), rs1.getString(3)));
+
+		}
+		
+		return pelis;		
 	}
 
 	public List<Pelicula> peliculasDirector(String director) throws SQLException {

@@ -3,9 +3,7 @@ package controller;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import model.BBDD;
+import dao.BBDD;
 import model.Pelicula;
 
 @Controller
@@ -21,7 +19,6 @@ public class ControllerMVC5 {
 
 	BBDD bbdd;
 	String next = null;
-	RequestDispatcher rd;
 
 	@RequestMapping("/info")
 	public ModelAndView info() {
@@ -37,10 +34,23 @@ public class ControllerMVC5 {
 	public ModelAndView formAdmin() {
 		return new ModelAndView("formAdmin");
 	}
+	
+	@PostMapping("/mantPeliculas")
+	public ModelAndView obtenerPeliculas(HttpServletRequest request) throws SQLException, ClassNotFoundException {
+		
+		bbdd = new BBDD();
+		
+		List<Pelicula> peliculas = bbdd.obtenerPeliculas();
+		
+		request.setAttribute("pelis", peliculas);
+		
+		next = "mantPeliculas";
+		
+		return new ModelAndView(next, "pelis", peliculas);
+	}
 
 	@PostMapping("/peliculasDirector")
-	public ModelAndView peliculasDirector(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, ClassNotFoundException {
+	public ModelAndView peliculasDirector(HttpServletRequest request) throws SQLException, ClassNotFoundException {
 
 		bbdd = new BBDD();
 
@@ -73,7 +83,8 @@ public class ControllerMVC5 {
 		int numero = bbdd.usuariosBD(username, password);
 
 		if (numero > 0) {
-
+			
+			request.setAttribute("msg", "Usuario logeado correctamente");
 			next = "successfulLogin";
 
 		} else {

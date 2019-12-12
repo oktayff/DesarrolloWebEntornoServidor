@@ -237,7 +237,7 @@ public class Controller extends HttpServlet {
 			
 			RequestDispatcher rd;
 			
-			Pelicula pe = bbdd.sacaPelicula(request.getParameter("id"));
+			Pelicula pe = bbdd.sacaPelicula(request.getParameter("titulo"));
 			
 			request.setAttribute("pelicula", pe);
 			
@@ -259,11 +259,10 @@ public class Controller extends HttpServlet {
 			
 			RequestDispatcher rd;
 			
-			String id = request.getParameter("id");
 			String director = request.getParameter("director");
 			String titulo = request.getParameter("titulo");
 			
-			Pelicula antesdeactualizar = bbdd.sacaPelicula(id);
+			Pelicula antesdeactualizar = bbdd.sacaPelicula(titulo);
 			
 			String fecha = request.getParameter("fecha");
 			
